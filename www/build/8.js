@@ -77,7 +77,7 @@ var AddEmployeePage = /** @class */ (function () {
         this.camera = camera;
         this.restProvider = restProvider;
         this.toastCtrl = toastCtrl;
-        this.data = { id: "", name: "", lastname: "", contact: "", designation: "", email: "", password: "" };
+        this.data = { avatar: "", id: "", name: "", lastname: "", contact: "", designation: "", email: "", password: "" };
         this.imgPreview = 'assets/imgs/blank-avatar.jpg';
         this.registerForm = formBuilder.group({
             name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required])],
@@ -146,6 +146,7 @@ var AddEmployeePage = /** @class */ (function () {
          ); */
     };
     AddEmployeePage.prototype.getPhoto = function () {
+        var _this = this;
         console.log("In get Photo Method");
         var options = {
             quality: 100,
@@ -163,7 +164,8 @@ var AddEmployeePage = /** @class */ (function () {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64 (DATA_URL):
             console.log("Check Image" + imageData);
-            //  let base64Image = 'data:image/jpeg;base64,' + imageData;
+            var base64Image = 'data:image/jpeg;base64,' + imageData;
+            _this.data.avatar = base64Image;
         }, function (err) {
             console.log("Check Error Red" + err);
             // Handle error
@@ -171,7 +173,7 @@ var AddEmployeePage = /** @class */ (function () {
     };
     AddEmployeePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-add-employee',template:/*ion-inline-start:"E:\IonicNewBranch\Ionic\CameraApp\src\pages\add-employee\add-employee.html"*/'<!--\n  Generated template for the AddEmployeePage page.\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>AddEmployee</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n<h2 text-center>Add Employee\n<ion-icon name="contact"></ion-icon>\n</h2>\n<form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="saveEmployee(registerForm.value)">\n  <ion-item>\n    <ion-label fixed>Avatar</ion-label>\n    <ion-avatar avatar item-end>\n        <img src="{{imgPreview}}" (click)="getPhoto()">\n    </ion-avatar>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Name</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.name" name="name" formControlName="name"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>LastName</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.lastname" name="lastname" formControlName="lastname"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Contact</ion-label>\n    <ion-input type="tel" [(ngModel)] = "data.contact" name="contact" formControlName="contact"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Designation</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.designation" name="designation" formControlName="designation"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Email</ion-label>\n    <ion-input type="email" [(ngModel)] = "data.email" name="email" formControlName="email"></ion-input>\n  </ion-item> \n  <ion-item>\n    <ion-label color="primary" floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)] = "data.password" name="password" formControlName="password"></ion-input>\n  </ion-item> \n  <button ion-button type="submit" [disabled]="!registerForm.valid" block>Submit</button> \n</form>\n</ion-content>'/*ion-inline-end:"E:\IonicNewBranch\Ionic\CameraApp\src\pages\add-employee\add-employee.html"*/,
+            selector: 'page-add-employee',template:/*ion-inline-start:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\add-employee\add-employee.html"*/'<!--\n  Generated template for the AddEmployeePage page.\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>AddEmployee</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n<h2 text-center>Add Employee\n<ion-icon name="contact"></ion-icon>\n</h2>\n<form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="saveEmployee(registerForm.value)">\n  <ion-item>\n    <ion-label fixed>Avatar</ion-label>\n    <ion-avatar avatar item-end>\n        <img src="{{imgPreview}}" (click)="getPhoto()">\n    </ion-avatar>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Name</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.name" name="name" formControlName="name"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>LastName</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.lastname" name="lastname" formControlName="lastname"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Contact</ion-label>\n    <ion-input type="tel" [(ngModel)] = "data.contact" name="contact" formControlName="contact"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Designation</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.designation" name="designation" formControlName="designation"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Email</ion-label>\n    <ion-input type="email" [(ngModel)] = "data.email" name="email" formControlName="email"></ion-input>\n  </ion-item> \n  <ion-item>\n    <ion-label color="primary" floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)] = "data.password" name="password" formControlName="password"></ion-input>\n  </ion-item> \n  <button ion-button type="submit" [disabled]="!registerForm.valid" block>Submit</button> \n</form>\n</ion-content>'/*ion-inline-end:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\add-employee\add-employee.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],

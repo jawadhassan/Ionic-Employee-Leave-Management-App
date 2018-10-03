@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\IonicNewBranch\Ionic\CameraApp\platforms\android\CordovaLib\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\IonicNewBranch\Ionic\CameraApp\platforms\android\CordovaLib\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\Ionic Employee Leave Managment System\CameraApp\platforms\android\CordovaLib\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\Ionic Employee Leave Managment System\CameraApp\platforms\android\CordovaLib\src\debug\shaders"/></dataSet></merger>

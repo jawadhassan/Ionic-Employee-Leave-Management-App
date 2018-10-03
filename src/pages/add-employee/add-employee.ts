@@ -18,7 +18,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class AddEmployeePage {
 
-  data = { id: "", name: "", lastname: "", contact: "", designation: "",email:"",password:"" };
+  data = {avatar:"", id: "", name: "", lastname: "", contact: "", designation: "",email:"",password:"" };
 
   registerForm: FormGroup;
 
@@ -131,7 +131,8 @@ export class AddEmployeePage {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64 (DATA_URL):
          console.log("Check Image"+imageData);
-        //  let base64Image = 'data:image/jpeg;base64,' + imageData;
+          let base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.data.avatar = base64Image;
        }, (err) => {
          console.log("Check Error Red"+err);
         // Handle error

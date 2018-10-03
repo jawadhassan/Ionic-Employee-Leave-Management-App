@@ -78,7 +78,7 @@ export class RestProvider {
   saveEmployee(data){
     var newemployee = data;
     var newEmployeeData = JSON.stringify({ contact:newemployee.contact,designation:newemployee.designation,
-      id:newemployee.id,lastname:newemployee.lastname,name:newemployee.name,usermail:newemployee.email,password:newemployee.password});
+      id:newemployee.id,lastname:newemployee.lastname,name:newemployee.name,usermail:newemployee.email,password:newemployee.password,avatar:newemployee.avatar});
       const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
      
       return new Promise((resolve, reject) => {
