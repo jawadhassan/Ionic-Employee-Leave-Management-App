@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,AlertController, LoadingController,Loading } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service'
 import {Observable} from 'rxjs/Observable';
@@ -17,11 +17,15 @@ export class HomePage {
 
  // employees : any[] = [];
   employees : any;
+  loading:Loading;
   
 
   /* email:String = '';
   user:String = ''; */
-  constructor(public navCtrl: NavController,private camera:Camera,private auth: AuthServiceProvider,public restProvider : RestProvider,private sanitizer: DomSanitizer ) {
+  constructor(public navCtrl: NavController,private camera:Camera,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
+    private auth: AuthServiceProvider,public restProvider : RestProvider,private sanitizer: DomSanitizer ) {
       this.doRefresh(0);
     
     /*let info = this.auth.getUserInfo(); 
@@ -31,20 +35,25 @@ export class HomePage {
 
   ionViewDidLoad(){
     //this.getData();
-    this.getEmployee();
+    //this.getEmployee();
     
   }
 
   ionViewWillEnter(){
-   // this.getData();
+   //this.getData();
    this.getEmployee();
   }
 
   getEmployee(){
+    this.showLoading();
     this.restProvider.getEmployees().then(data =>{
         this.employees = data;
         console.log(this.employees);
-    }) 
+        this.loading.dismissAll();
+    },
+    error => {
+      this.showError(error);
+    })
 }
 
 doRefresh(refresher){
@@ -104,5 +113,25 @@ viewDetail(employee){
      // Handle error
     });
   }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+  showError(text) {
+    this.loading.dismiss();
+
+    let alert = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 
 }

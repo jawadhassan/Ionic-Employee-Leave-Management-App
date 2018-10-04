@@ -19,7 +19,8 @@
   <ion-item>
     <ion-label fixed>Avatar</ion-label>
     <ion-avatar avatar item-end>
-        <img src="{{imgPreview}}" (click)="getPhoto()">
+        <!--img src="{{imgPreview}}" (click)="getPhoto()"-->
+         <img [src]="base64Image || placeholder" onerror="this.src='assets/imgs/blank-avatar.jpg'" (click)="getPhoto()">
     </ion-avatar>
   </ion-item>
   <ion-item>

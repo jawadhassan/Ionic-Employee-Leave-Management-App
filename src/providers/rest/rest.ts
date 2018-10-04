@@ -55,7 +55,7 @@ export class RestProvider {
     var employee = data;
 
     var employeedata = JSON.stringify({ contact:employee.contact,designation:employee.designation,
-      id:employee.id,lastname:employee.lastname,name:employee.name,usermail:employee.email,password:employee.password});
+      id:employee.id,lastname:employee.lastname,name:employee.name,usermail:employee.email,password:employee.password,avatar:employee.avatar});
   
     const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 

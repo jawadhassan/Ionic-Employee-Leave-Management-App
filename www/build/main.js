@@ -7,7 +7,7 @@ webpackJsonp([9],{
 /* unused harmony export User */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthServiceProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
@@ -122,27 +122,27 @@ webpackEmptyAsyncContext.id = 116;
 
 var map = {
 	"../pages/add-employee/add-employee.module": [
-		279,
+		287,
 		8
 	],
 	"../pages/edit-employee/edit-employee.module": [
-		280,
+		283,
 		7
 	],
 	"../pages/employee-detail/employee-detail.module": [
-		281,
+		279,
 		6
 	],
 	"../pages/leave-request-status/leave-request-status.module": [
-		282,
+		280,
 		5
 	],
 	"../pages/leave-request/leave-request.module": [
-		283,
+		281,
 		4
 	],
 	"../pages/login/login.module": [
-		284,
+		282,
 		3
 	],
 	"../pages/menu/menu.module": [
@@ -150,11 +150,11 @@ var map = {
 		2
 	],
 	"../pages/user-home/user-home.module": [
-		286,
+		284,
 		1
 	],
 	"../pages/user-leave-request/user-leave-request.module": [
-		287,
+		286,
 		0
 	]
 };
@@ -181,11 +181,11 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_rest_rest__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser__ = __webpack_require__(25);
@@ -209,9 +209,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomePage = /** @class */ (function () {
     /* email:String = '';
     user:String = ''; */
-    function HomePage(navCtrl, camera, auth, restProvider, sanitizer) {
+    function HomePage(navCtrl, camera, alertCtrl, loadingCtrl, auth, restProvider, sanitizer) {
         this.navCtrl = navCtrl;
         this.camera = camera;
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
         this.auth = auth;
         this.restProvider = restProvider;
         this.sanitizer = sanitizer;
@@ -222,17 +224,21 @@ var HomePage = /** @class */ (function () {
     }
     HomePage.prototype.ionViewDidLoad = function () {
         //this.getData();
-        this.getEmployee();
+        //this.getEmployee();
     };
     HomePage.prototype.ionViewWillEnter = function () {
-        // this.getData();
+        //this.getData();
         this.getEmployee();
     };
     HomePage.prototype.getEmployee = function () {
         var _this = this;
+        this.showLoading();
         this.restProvider.getEmployees().then(function (data) {
             _this.employees = data;
             console.log(_this.employees);
+            _this.loading.dismissAll();
+        }, function (error) {
+            _this.showError(error);
         });
     };
     HomePage.prototype.doRefresh = function (refresher) {
@@ -285,13 +291,30 @@ var HomePage = /** @class */ (function () {
             // Handle error
         });
     };
+    HomePage.prototype.showLoading = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange: true
+        });
+        this.loading.present();
+    };
+    HomePage.prototype.showError = function (text) {
+        this.loading.dismiss();
+        var alert = this.alertCtrl.create({
+            title: 'Fail',
+            subTitle: text,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n      <button ion-button [menuToggle]="activeMenu">\n          <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Employee Management System\n    </ion-title>\n    <!-- <ion-buttons end>\n        <button ion-button icon-only (click) = "addData()">\n          <ion-icon name="add-circle"></ion-icon>\n        </button>\n    </ion-buttons> -->\n  </ion-navbar>\n</ion-header>\n<!-- \n<ion-content padding>\n  The world is your oyster.\n  <p>\n    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.\n  </p>\n  <h3>\n    Welcome to App, {{user}}\n    Your mail is, {{email}}\n  </h3>\n</ion-content> -->\n<ion-content padding>\n  <h2 text-center>List of Employees\n      <ion-icon name="contacts"></ion-icon>\n  </h2>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <ion-list>\n     \n <!--    <ion-item-sliding *ngFor="let employee of employees;let i=index" (click)="viewDetail(employee)">\n -->\n <ion-item-sliding  *ngFor="let employee of employees" (click)="viewDetail(employee)">      \n      <ion-item no-padding>\n          <ion-avatar item-start>\n              <img [src]="getImgContent(employee.avatar)">\n            </ion-avatar>\n        <h2>\n          {{employee.name}}\n        </h2>\n        <p>\n          {{employee.designation}}\n        </p>\n      </ion-item>\n    </ion-item-sliding>\n  </ion-list>\n  \n</ion-content>\n'/*ion-inline-end:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_6__providers_rest_rest__["a" /* RestProvider */], __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser__["c" /* DomSanitizer */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__providers_rest_rest__["a" /* RestProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_rest_rest__["a" /* RestProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _g || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=home.js.map
@@ -322,7 +345,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(278);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_rest_rest__ = __webpack_require__(50);
@@ -361,15 +384,15 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/add-employee/add-employee.module#AddEmployeePageModule', name: 'AddEmployeePage', segment: 'add-employee', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/edit-employee/edit-employee.module#EditEmployeePageModule', name: 'EditEmployeePage', segment: 'edit-employee', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/employee-detail/employee-detail.module#EmployeeDetailPageModule', name: 'EmployeeDetailPage', segment: 'employee-detail', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/leave-request-status/leave-request-status.module#LeaveRequestStatusPageModule', name: 'LeaveRequestStatusPage', segment: 'leave-request-status', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/leave-request/leave-request.module#LeaveRequestPageModule', name: 'LeaveRequestPage', segment: 'leave-request', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/menu/menu.module#MenuPageModule', name: 'MenuPage', segment: 'menu', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/edit-employee/edit-employee.module#EditEmployeePageModule', name: 'EditEmployeePage', segment: 'edit-employee', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/user-home/user-home.module#UserHomePageModule', name: 'UserHomePage', segment: 'user-home', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/user-leave-request/user-leave-request.module#UserLeaveRequestPageModule', name: 'UserLeaveRequestPage', segment: 'user-leave-request', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/menu/menu.module#MenuPageModule', name: 'MenuPage', segment: 'menu', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/user-leave-request/user-leave-request.module#UserLeaveRequestPageModule', name: 'UserLeaveRequestPage', segment: 'user-leave-request', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/add-employee/add-employee.module#AddEmployeePageModule', name: 'AddEmployeePage', segment: 'add-employee', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_10__angular_forms__["b" /* FormsModule */],
@@ -449,7 +472,7 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_toPromise__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_toPromise__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -509,7 +532,7 @@ var RestProvider = /** @class */ (function () {
         var _this = this;
         var employee = data;
         var employeedata = JSON.stringify({ contact: employee.contact, designation: employee.designation,
-            id: employee.id, lastname: employee.lastname, name: employee.name, usermail: employee.email, password: employee.password });
+            id: employee.id, lastname: employee.lastname, name: employee.name, usermail: employee.email, password: employee.password, avatar: employee.avatar });
         var config = { headers: new __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["c" /* HttpHeaders */]().set('Content-Type', 'application/json') };
         return new Promise(function (resolve, reject) {
             _this.http.post(_this.apiUrl + '/edit', employeedata, config)

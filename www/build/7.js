@@ -1,6 +1,6 @@
 webpackJsonp([7],{
 
-/***/ 280:
+/***/ 283:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditEmployeePageModule", function() { return EditEmployeePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__edit_employee__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__edit_employee__ = __webpack_require__(292);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var EditEmployeePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 292:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47,6 +47,7 @@ var EditEmployeePageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61,6 +62,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the EditEmployeePage page.
  *
@@ -68,19 +70,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var EditEmployeePage = /** @class */ (function () {
-    function EditEmployeePage(navCtrl, navParams, toastCtrl, restProvider, formBuilder) {
+    function EditEmployeePage(navCtrl, navParams, toastCtrl, camera, alertCtrl, loadingCtrl, restProvider, formBuilder) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.toastCtrl = toastCtrl;
+        this.camera = camera;
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
         this.restProvider = restProvider;
         this.formBuilder = formBuilder;
-        this.data = { id: 0, name: "", lastname: "", contact: "", designation: "", email: "", password: "" };
+        this.data = { id: 0, name: "", lastname: "", contact: "", designation: "", email: "", password: "", avatar: "" };
+        this.placeholder = 'assets/imgs/blank-avatar.jpg';
         //this.getCurrentData(navParams.get("id"));
         this.data.id = this.navParams.get('employee').id;
         this.data.name = this.navParams.get('employee').name;
         this.data.lastname = this.navParams.get('employee').lastname;
         this.data.contact = this.navParams.get('employee').contact;
         this.data.designation = this.navParams.get('employee').designation;
+        this.data.avatar = this.navParams.get('employee').avatar;
         console.log("Check Email" + this.navParams.get('employee').email);
         this.data.email = this.navParams.get('employee').usermail;
         this.data.password = this.navParams.get('employee').password;
@@ -164,6 +171,7 @@ var EditEmployeePage = /** @class */ (function () {
     } */
     EditEmployeePage.prototype.updateData = function () {
         var _this = this;
+        this.showLoading();
         console.log('update Data called');
         this.restProvider.editEmployee(this.data).then(function (res) {
             console.log(res);
@@ -177,6 +185,49 @@ var EditEmployeePage = /** @class */ (function () {
             });
             toast.present();
             _this.navCtrl.popToRoot();
+        }, function (error) {
+            _this.showError(error);
+        });
+    };
+    EditEmployeePage.prototype.showLoading = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange: true
+        });
+        this.loading.present();
+    };
+    EditEmployeePage.prototype.showError = function (text) {
+        this.loading.dismiss();
+        var alert = this.alertCtrl.create({
+            title: 'Fail',
+            subTitle: text,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    EditEmployeePage.prototype.getPhoto = function () {
+        var _this = this;
+        console.log("In get Photo Method");
+        var options = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
+        };
+        /*   this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+            result => console.log('Has permission?',result.hasPermission),
+            err => {
+              console.log("No Permission");
+              this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)}
+          );  */
+        this.camera.getPicture(options).then(function (imageData) {
+            // imageData is either a base64 encoded string or a file URI
+            // If it's base64 (DATA_URL):
+            console.log("Check Image" + imageData);
+            _this.data.avatar = "data:image/jpeg;base64," + imageData;
+        }, function (err) {
+            console.log("Check Error Red" + err);
+            // Handle error
         });
     };
     EditEmployeePage.prototype.ionViewDidLoad = function () {
@@ -184,10 +235,14 @@ var EditEmployeePage = /** @class */ (function () {
     };
     EditEmployeePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-edit-employee',template:/*ion-inline-start:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\edit-employee\edit-employee.html"*/'<!--\n  Generated template for the EditEmployeePage page.\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>EditEmployee</ion-title>\n  </ion-navbar>\n\n</ion-header>\n<ion-content padding>\n<h2 text-center>Edit Contact\n  <ion-icon name="create"></ion-icon>\n</h2>\n<form  [formGroup]="editForm" #formDir="ngForm"  (ngSubmit)="updateData(editForm.value)">\n  <ion-item>\n    <ion-label color="primary" floating>Name</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.name" name="name" formControlName="name"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>LastName</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.lastname" name="lastname" formControlName="lastname"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Contact</ion-label>\n    <ion-input type="tel" [(ngModel)] = "data.contact" name="contact" formControlName="contact"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Designation</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.designation" name="designation" formControlName="designation"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Email</ion-label>\n    <ion-input type="email" [(ngModel)] = "data.email" name="email" formControlName="email"></ion-input>\n  </ion-item> \n  <ion-item>\n    <ion-label color="primary" floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)] = "data.password" name="password" formControlName="password"></ion-input>\n  </ion-item> \n  <ion-input type="hidden" [(ngModel)]="data.id" name="id" formControlName="id"></ion-input>\n  <button ion-button class="submit-btn" type="submit"  [disabled]="!editForm.valid" block>Submit</button>\n</form>\n</ion-content>\n'/*ion-inline-end:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\edit-employee\edit-employee.html"*/,
+            selector: 'page-edit-employee',template:/*ion-inline-start:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\edit-employee\edit-employee.html"*/'<!--\n  Generated template for the EditEmployeePage page.\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>EditEmployee</ion-title>\n  </ion-navbar>\n\n</ion-header>\n<ion-content padding>\n<h2 text-center>Edit Contact\n  <ion-icon name="create"></ion-icon>\n</h2>\n<form  [formGroup]="editForm" #formDir="ngForm"  (ngSubmit)="updateData(editForm.value)">\n    <ion-item>\n        <ion-label fixed>Avatar</ion-label>\n        <ion-avatar avatar item-end>\n            <!--img src="{{imgPreview}}" (click)="getPhoto()"-->\n             <img [src]="data.avatar || placeholder" onerror="this.src=\'assets/imgs/blank-avatar.jpg\'" (click)="getPhoto()">\n        </ion-avatar>\n      </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Name</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.name" name="name" formControlName="name"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>LastName</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.lastname" name="lastname" formControlName="lastname"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Contact</ion-label>\n    <ion-input type="tel" [(ngModel)] = "data.contact" name="contact" formControlName="contact"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Designation</ion-label>\n    <ion-input type="text" [(ngModel)] = "data.designation" name="designation" formControlName="designation"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label color="primary" floating>Email</ion-label>\n    <ion-input type="email" [(ngModel)] = "data.email" name="email" formControlName="email"></ion-input>\n  </ion-item> \n  <ion-item>\n    <ion-label color="primary" floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)] = "data.password" name="password" formControlName="password"></ion-input>\n  </ion-item> \n  <ion-input type="hidden" [(ngModel)]="data.id" name="id" formControlName="id"></ion-input>\n  <button ion-button class="submit-btn" type="submit"  [disabled]="!editForm.valid" block>Submit</button>\n</form>\n</ion-content>\n'/*ion-inline-end:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\edit-employee\edit-employee.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]])
     ], EditEmployeePage);
     return EditEmployeePage;

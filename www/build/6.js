@@ -1,6 +1,6 @@
 webpackJsonp([6],{
 
-/***/ 281:
+/***/ 279:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmployeeDetailPageModule", function() { return EmployeeDetailPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__employee_detail__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__employee_detail__ = __webpack_require__(288);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var EmployeeDetailPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 290:
+/***/ 288:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113,7 +113,7 @@ var EmployeeDetailPage = /** @class */ (function () {
     };
     EmployeeDetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-employee-detail',template:/*ion-inline-start:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\employee-detail\employee-detail.html"*/'<!--\n  Generated template for the EmployeeDetailPage page.\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>EmployeeDetail</ion-title>\n    <ion-buttons end>\n        <button ion-button icon-only (click) = "editData(employee)">\n          <ion-icon name="create"></ion-icon>\n        </button>\n    </ion-buttons>\n    <ion-buttons end>\n        <button ion-button icon-only (click) = "delete(employee.id)">\n          <ion-icon name="trash"></ion-icon>\n        </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n<ion-content padding>\n        \n   <img  width="80" height="80" item-start [src]="getImgContent()">\n        \n    <ion-row>\n        <ion-col width-50><h2>{{name}}</h2></ion-col>\n    </ion-row>  \n<ion-row>\n    <ion-col width-50><p>LastName:</p></ion-col>\n    <ion-col width-50><p>{{lastname}}</p></ion-col>\n</ion-row>\n<ion-row>\n        <ion-col width-50><p>Contact:</p></ion-col>\n        <ion-col width-50><p>{{contact}}</p></ion-col>\n</ion-row>\n<ion-row>\n    <ion-col width-50><p>Designation:</p></ion-col>\n    <ion-col width-50><p>{{designation}}</p></ion-col>\n</ion-row>\n<ion-row>\n    <ion-col width-50><p>Email:</p></ion-col>\n    <ion-col width-50><p>{{email}}</p></ion-col>\n</ion-row>\n</ion-content>'/*ion-inline-end:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\employee-detail\employee-detail.html"*/,
+            selector: 'page-employee-detail',template:/*ion-inline-start:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\employee-detail\employee-detail.html"*/'<!--\n  Generated template for the EmployeeDetailPage page.\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>EmployeeDetail</ion-title>\n    <ion-buttons end>\n        <button ion-button icon-only (click) = "editData(employee)">\n          <ion-icon name="create"></ion-icon>\n        </button>\n    </ion-buttons>\n    <ion-buttons end>\n        <button ion-button icon-only (click) = "delete(employee.id)">\n          <ion-icon name="trash"></ion-icon>\n        </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n<ion-content padding>\n        \n   <img item-start  width="120" height="120" [src]="getImgContent()">\n        \n    <ion-row>\n        <ion-col width-50><h2>{{name}}</h2></ion-col>\n    </ion-row>  \n<ion-row>\n    <ion-col width-50><p>LastName:</p></ion-col>\n    <ion-col width-50><p>{{lastname}}</p></ion-col>\n</ion-row>\n<ion-row>\n        <ion-col width-50><p>Contact:</p></ion-col>\n        <ion-col width-50><p>{{contact}}</p></ion-col>\n</ion-row>\n<ion-row>\n    <ion-col width-50><p>Designation:</p></ion-col>\n    <ion-col width-50><p>{{designation}}</p></ion-col>\n</ion-row>\n<ion-row>\n    <ion-col width-50><p>Email:</p></ion-col>\n    <ion-col width-50><p>{{email}}</p></ion-col>\n</ion-row>\n</ion-content>'/*ion-inline-end:"E:\Ionic Employee Leave Managment System\CameraApp\src\pages\employee-detail\employee-detail.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_rest_rest__["a" /* RestProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */]])

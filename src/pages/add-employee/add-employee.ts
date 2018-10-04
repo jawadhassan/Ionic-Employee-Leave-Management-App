@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, LoadingController, Loading,NavParams } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
@@ -21,13 +21,18 @@ export class AddEmployeePage {
   data = {avatar:"", id: "", name: "", lastname: "", contact: "", designation: "",email:"",password:"" };
 
   registerForm: FormGroup;
+  loading: Loading;
 
 
   imgPreview = 'assets/imgs/blank-avatar.jpg';
+  placeholder= 'assets/imgs/blank-avatar.jpg';
+  base64Image:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public formBuilder: FormBuilder,
     private camera: Camera,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
     public restProvider: RestProvider, private toastCtrl: ToastController) {
       
     this.registerForm = formBuilder.group({
@@ -77,8 +82,8 @@ export class AddEmployeePage {
   }
  */
   saveEmployee() {
-
-    this.restProvider.saveEmployee(this.data).then(res => {
+    this.showLoading();
+    this.restProvider.saveEmployee(this.data).then(res => {  
       console.log(res);
       let toast = this.toastCtrl.create({
         message: 'User was added successfully',
@@ -93,6 +98,9 @@ export class AddEmployeePage {
       toast.present();
       this.navCtrl.popToRoot();
 
+    },
+    error => {
+      this.showError(error);
     })
 
 
@@ -106,16 +114,36 @@ export class AddEmployeePage {
 
   }
 
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+  showError(text) {
+    this.loading.dismiss();
+
+    let alert = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
 
   getPhoto(){
 
     console.log("In get Photo Method");
-    const options: CameraOptions = {
+     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
-    }
+    } 
     
   /*   this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
       result => console.log('Has permission?',result.hasPermission),
@@ -131,8 +159,9 @@ export class AddEmployeePage {
         // imageData is either a base64 encoded string or a file URI
         // If it's base64 (DATA_URL):
          console.log("Check Image"+imageData);
-          let base64Image = 'data:image/jpeg;base64,' + imageData;
-          this.data.avatar = base64Image;
+         this.base64Image =  "data:image/jpeg;base64," + imageData;
+         console.log(this.base64Image);
+          this.data.avatar = this.base64Image;
        }, (err) => {
          console.log("Check Error Red"+err);
         // Handle error
